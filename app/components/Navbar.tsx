@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Navbar = () => {
   return (
     <>
@@ -70,7 +72,9 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <Link href={`/auth/login`} className="btn">
+            Log In/Register
+          </Link>
         </div>
       </div>
     </>
