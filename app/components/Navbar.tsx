@@ -57,7 +57,7 @@ const Navbar = () => {
               <Link href={"/dashboard/store"}>Store</Link>
             </li>
             <li>
-              <a>Shop</a>
+              <a>Shopping List</a>
             </li>
             <li>
               <a>Kitchen</a>
