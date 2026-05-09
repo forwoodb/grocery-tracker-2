@@ -57,10 +57,10 @@ const Navbar = () => {
               <Link href={"/dashboard/store"}>Store</Link>
             </li>
             <li>
-              <a>Shopping List</a>
+              <Link href={`/dashboard/shopping-list`}>Shopping List</Link>
             </li>
             <li>
-              <a>Kitchen</a>
+              <Link href={`/dashboard/kitchen`}>Kitchen</Link>
             </li>
           </ul>
         </div>
