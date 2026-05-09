@@ -1,13 +1,15 @@
 import Link from "next/link";
+
 interface AuthFormProps {
   mode: string;
+  formAction: (formData: FormData) => Promise<void>;
 }
 
-const AuthForm = ({ mode }: AuthFormProps) => {
+const AuthForm = ({ mode, formAction }: AuthFormProps) => {
   return (
     <>
       <div className="form-wrapper flex flex-col items-center">
-        <form action="">
+        <form action={formAction}>
           <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
             <legend className="fieldset-legend">
               {mode === "login" ? "Login" : "Register"}
