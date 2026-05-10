@@ -1,8 +1,11 @@
 import AuthForm from "@/app/components/AuthForm";
 import { auth } from "@/app/lib/auth";
+import connectDb from "@/app/lib/db";
 import { redirect } from "next/navigation";
 
-const RegisterPage = () => {
+const RegisterPage = async () => {
+  await connectDb();
+
   const registerUserAction = async (formData: FormData) => {
     "use server";
 
@@ -10,15 +13,21 @@ const RegisterPage = () => {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    await auth.api.signUpEmail({
-      body: {
-        name,
-        email,
-        password,
-      },
-    });
+    try {
+      await auth.api.signUpEmail({
+        body: {
+          name,
+          email,
+          password,
+        },
+      });
 
-    redirect("/dashboard/store");
+      redirect("/dashboard/store");
+    } catch (error: unknown) {
+      const err = error as Error;
+      throw new Error(err.message);
+      // console.log(err.message);
+    }
   };
   return (
     <>

@@ -19,7 +19,9 @@ const LoginPage = () => {
       });
 
       redirect("/dashboard/store");
-    } catch (error) {
+    } catch (error: unknown) {
+      const err = error as Error;
+      throw new Error(err.message);
       console.log(error);
     }
   };
