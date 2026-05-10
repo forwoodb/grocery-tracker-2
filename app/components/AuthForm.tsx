@@ -1,15 +1,25 @@
+"use client";
+
 import Link from "next/link";
+import { useActionState } from "react";
 
 interface AuthFormProps {
   mode: string;
-  formAction: (formData: FormData) => Promise<void>;
+  userAction: (
+    prevState: unknown,
+    formData: FormData,
+  ) => Promise<void | { message: string }>;
 }
 
-const AuthForm = ({ mode, formAction }: AuthFormProps) => {
+const AuthForm = ({ mode, userAction }: AuthFormProps) => {
+  const [state, formAction] = useActionState(userAction, null);
+  console.log(state);
+
   return (
     <>
       <div className="form-wrapper flex flex-col items-center">
         <form action={formAction}>
+          {state?.message && <p>{state.message}</p>}
           <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
             <legend className="fieldset-legend">
               {mode === "login" ? "Login" : "Register"}

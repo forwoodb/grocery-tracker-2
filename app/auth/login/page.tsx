@@ -3,7 +3,11 @@ import { auth } from "@/app/lib/auth";
 import { redirect } from "next/navigation";
 
 const LoginPage = () => {
-  const signInAction = async (formData: FormData) => {
+  const signInAction = async (
+    // prevState: string | void | null,
+    prevState: unknown,
+    formData: FormData,
+  ) => {
     "use server";
 
     const email = formData.get("email") as string;
@@ -19,16 +23,16 @@ const LoginPage = () => {
       });
 
       redirect("/dashboard/store");
-    } catch (error: unknown) {
+    } catch (error) {
       const err = error as Error;
-      throw new Error(err.message);
-      console.log(error);
+      // throw new Error(err.message);
+      return { message: err.message };
     }
   };
   return (
     <div>
       <h1>Login Page</h1>
-      <AuthForm mode={"login"} formAction={signInAction} />
+      <AuthForm mode={"login"} userAction={signInAction} />
     </div>
   );
 };
