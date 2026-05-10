@@ -18,15 +18,30 @@ const AuthForm = ({ mode, formAction }: AuthFormProps) => {
             {mode === "register" && (
               <>
                 <label className="label">Name</label>
-                <input type="name" className="input" placeholder="Name" />
+                <input
+                  type="name"
+                  name="name"
+                  className="input"
+                  placeholder="Name"
+                />
               </>
             )}
 
             <label className="label">Email</label>
-            <input type="email" className="input" placeholder="Email" />
+            <input
+              type="email"
+              name="email"
+              className="input"
+              placeholder="Email"
+            />
 
             <label className="label">Password</label>
-            <input type="password" className="input" placeholder="Password" />
+            <input
+              type="password"
+              name="password"
+              className="input"
+              placeholder="Password"
+            />
 
             <button className="btn btn-neutral mt-4">
               {mode === "login" ? "Login" : "Register"}
