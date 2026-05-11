@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 const RegisterPage = async () => {
   await connectDb();
 
-  const registerUserAction = async (formData: FormData) => {
+  const registerUserAction = async (prevState: unknown, formData: FormData) => {
     "use server";
 
     const name = formData.get("name") as string;
@@ -25,14 +25,15 @@ const RegisterPage = async () => {
       redirect("/dashboard/store");
     } catch (error: unknown) {
       const err = error as Error;
-      throw new Error(err.message);
+      // throw new Error(err.message);
       // console.log(err.message);
+      return { message: err.message };
     }
   };
   return (
     <>
       <h1>Register Page</h1>
-      <AuthForm mode={"register"} formAction={registerUserAction} />
+      <AuthForm mode={"register"} userAction={registerUserAction} />
     </>
   );
 };
