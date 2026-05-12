@@ -1,5 +1,6 @@
 import connectDb from "@/app/lib/db";
 import User from "@/app/models/User";
+import { getSession } from "better-auth/api";
 import { redirect } from "next/navigation";
 
 interface PageProps {
@@ -9,9 +10,14 @@ interface PageProps {
 const EditUserPage = async ({ params }: PageProps) => {
   await connectDb();
 
+  const session = getSession();
+
+  console.log(session);
+
   const { id } = await params;
 
-  const user = await User.findOne({ _id: id });
+  const data = await User.findOne({ _id: id });
+  const user = JSON.parse(JSON.stringify(data));
 
   const updateUser = async (formData: FormData) => {
     "use server";

@@ -4,11 +4,19 @@ import { revalidatePath } from "next/cache";
 import connectDb from "../lib/db";
 import Link from "next/link";
 
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+}
+
 const AdminPage = async () => {
   await connectDb();
 
   // Get users
-  const users = await User.find({});
+  const data = await User.find({});
+  const users = JSON.parse(JSON.stringify(data));
 
   const deleteUser = async (formData: FormData) => {
     "use server";
@@ -33,7 +41,7 @@ const AdminPage = async () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => {
+          {users.map((user: User) => {
             return (
               <tr key={user._id}>
                 <td>{user.name}</td>
