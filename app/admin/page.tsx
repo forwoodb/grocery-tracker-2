@@ -1,11 +1,25 @@
 import User from "../models/User";
+import GroceryItem from "../models/GroceryItem";
+import { revalidatePath } from "next/cache";
+import connectDb from "../lib/db";
 
 const AdminPage = async () => {
   // Get users
   const users = await User.find({});
 
-  const deleteUser = async (params: type) => {};
-  console.log(users);
+  const deleteUser = async (formData: FormData) => {
+    "use server";
+
+    await connectDb();
+
+    const userId = formData.get("userId");
+    const user = await User.findByIdAndDelete({ _id: userId });
+    const userGroceryItems = await GroceryItem.deleteMany({ userId });
+
+    revalidatePath("/admin");
+    console.log(user);
+    console.log(userGroceryItems);
+  };
 
   return (
     <div>
@@ -24,8 +38,12 @@ const AdminPage = async () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>
-                  <form action="">
-                    <input type="hidden" name="userId" />
+                  <form action={deleteUser}>
+                    <input
+                      type="hidden"
+                      name="userId"
+                      defaultValue={user._id}
+                    />
                     <button>Delete</button>
                   </form>
                 </td>
