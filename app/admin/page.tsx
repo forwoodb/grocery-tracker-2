@@ -17,8 +17,6 @@ const AdminPage = async () => {
     const userGroceryItems = await GroceryItem.deleteMany({ userId });
 
     revalidatePath("/admin");
-    console.log(user);
-    console.log(userGroceryItems);
   };
 
   return (
@@ -37,6 +35,7 @@ const AdminPage = async () => {
               <tr key={user._id}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
+                <td>{user.role}</td>
                 <td>
                   <form action={deleteUser}>
                     <input
