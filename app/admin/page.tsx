@@ -2,6 +2,7 @@ import User from "../models/User";
 import GroceryItem from "../models/GroceryItem";
 import { revalidatePath } from "next/cache";
 import connectDb from "../lib/db";
+import Link from "next/link";
 
 const AdminPage = async () => {
   // Get users
@@ -37,13 +38,18 @@ const AdminPage = async () => {
                 <td>{user.email}</td>
                 <td>{user.role}</td>
                 <td>
+                  <Link href={`admin/edit/${user._id}`} className="btn">
+                    Edit
+                  </Link>
+                </td>
+                <td>
                   <form action={deleteUser}>
                     <input
                       type="hidden"
                       name="userId"
                       defaultValue={user._id}
                     />
-                    <button>Delete</button>
+                    <button className="btn">Delete</button>
                   </form>
                 </td>
               </tr>
