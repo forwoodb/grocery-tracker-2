@@ -37,8 +37,9 @@ const AdminPage = async () => {
     await connectDb();
 
     const userId = formData.get("userId");
-    const user = await User.findByIdAndDelete({ _id: userId });
-    const userGroceryItems = await GroceryItem.deleteMany({ userId });
+
+    await User.findByIdAndDelete({ _id: userId });
+    await GroceryItem.deleteMany({ userId });
 
     revalidatePath("/admin");
   };
