@@ -3,6 +3,8 @@ import User from "../models/User";
 const AdminPage = async () => {
   // Get users
   const users = await User.find({});
+
+  const deleteUser = async (params: type) => {};
   console.log(users);
 
   return (
@@ -21,6 +23,12 @@ const AdminPage = async () => {
               <tr key={user._id}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
+                <td>
+                  <form action="">
+                    <input type="hidden" name="userId" />
+                    <button>Delete</button>
+                  </form>
+                </td>
               </tr>
             );
           })}
