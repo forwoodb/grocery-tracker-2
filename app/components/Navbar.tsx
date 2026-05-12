@@ -7,7 +7,15 @@ const Navbar = async () => {
     headers: await headers(),
   });
 
-  console.log(session);
+  const signoutUserAction = async () => {
+    "use server";
+
+    await auth.api.signOut({
+      headers: await headers(),
+    });
+  };
+
+  // console.log(session);
 
   return (
     <>
@@ -74,7 +82,7 @@ const Navbar = async () => {
         </div>
         <div className="navbar-end">
           {session ? (
-            <form action="">
+            <form action={signoutUserAction}>
               <button className="btn">Log Out</button>
             </form>
           ) : (
