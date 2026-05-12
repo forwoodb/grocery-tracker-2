@@ -3,6 +3,9 @@ import GroceryItem from "../models/GroceryItem";
 import { revalidatePath } from "next/cache";
 import connectDb from "../lib/db";
 import Link from "next/link";
+import { auth } from "../lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 interface User {
   _id: string;
@@ -13,6 +16,16 @@ interface User {
 
 const AdminPage = async () => {
   await connectDb();
+
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (session?.user.role !== "admin") {
+    redirect("/dashboard");
+  }
+
+  console.log(session);
 
   // Get users
   const data = await User.find({});
