@@ -5,6 +5,8 @@ import connectDb from "../lib/db";
 import Link from "next/link";
 
 const AdminPage = async () => {
+  await connectDb();
+
   // Get users
   const users = await User.find({});
 
