@@ -1,6 +1,7 @@
 import { auth } from "@/app/lib/auth";
 import connectDb from "@/app/lib/db";
 import GroceryItem from "@/app/models/GroceryItem";
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -28,10 +29,11 @@ const StorePage = async () => {
     const newItem = await new GroceryItem({ ...data, userId });
 
     await newItem.save();
+
+    revalidatePath("/");
   };
   return (
     <>
-      <h1>Store Page</h1>
       <div className="bg-base-100 rounded-xl shadow-md p-6 mb-3">
         <h2 className="text-3xl  font-semibold mb-6 text-center">
           {/* {edit ? "Edit Item" : "Store Items"} */}
@@ -201,14 +203,16 @@ const StorePage = async () => {
                     <td>{item.brand}</td>
                     <td>{item.size}</td>
                     <td>{item.location}</td>
-                    <td>
+                    <td className="w-px whitespace-nowrap">
                       {/* <Button click={() => editItemID(item)}>Edit</Button> */}
-                      <button>Edit</button>
+                      <button className="btn btn-sm border border-black">
+                        Edit
+                      </button>
                     </td>
-                    <td>
+                    <td className="w-px whitespace-nowrap">
                       <button
                         // click={() => deleteItem(item._id)}
-                        className="bg-red-700 text-white"
+                        className="btn btn-sm bg-red-700 text-white"
                       >
                         Delete
                       </button>
