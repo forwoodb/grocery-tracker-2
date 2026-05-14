@@ -1,9 +1,24 @@
+import { auth } from "@/app/lib/auth";
 import connectDb from "@/app/lib/db";
+import GroceryItem from "@/app/models/GroceryItem";
+import { headers } from "next/headers";
 
 const StorePage = async () => {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   const createGroceryItem = async (formData: FormData) => {
     "use server";
     await connectDb();
+
+    const userId = session?.user.id;
+
+    const data = Object.fromEntries(formData);
+
+    const newItem = await new GroceryItem({ ...data, userId });
+
+    await newItem.save();
   };
   return (
     <>
@@ -35,6 +50,7 @@ const StorePage = async () => {
                 // onChange={change}
                 className="input input-warning w-full"
               />
+              <p className="label">Required</p>
             </div>
             <div className="flex flex-col gap-1">
               <label htmlFor="price" className="font-medium">
