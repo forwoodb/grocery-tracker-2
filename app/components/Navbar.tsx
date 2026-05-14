@@ -44,25 +44,20 @@ const Navbar = async () => {
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               <li>
-                <a>Item 1</a>
+                <Link href={`/`}>Home</Link>
               </li>
               <li>
-                <a>Parent</a>
-                <ul className="p-2">
-                  <li>
-                    <a>Submenu 1</a>
-                  </li>
-                  <li>
-                    <a>Submenu 2</a>
-                  </li>
-                </ul>
+                <Link href={`/dashboard/store`}>Store</Link>
               </li>
               <li>
-                <a>Item 3</a>
+                <Link href={`/dashboard/shopping-list`}>Shopping List</Link>
+              </li>
+              <li>
+                <Link href={`/dashboard/kitchen`}>Kitchen</Link>
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a className="btn btn-ghost text-xl">Grocery Tracker</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
