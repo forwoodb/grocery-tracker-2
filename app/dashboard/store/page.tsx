@@ -4,13 +4,14 @@ import connectDb from "@/app/lib/db";
 import GroceryItem from "@/app/models/GroceryItem";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Item } from "@/app/lib/types";
+import StoreItems from "@/app/components/StoreItems";
 
 const StorePage = async () => {
   await connectDb();
 
+  // Get session info
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -48,67 +49,10 @@ const StorePage = async () => {
   return (
     <>
       <ItemForm submit={createGroceryItem} item={null} />
-      <div className="bg-base-100 rounded-xl shadow-md p-6">
-        {/* <button click={addToList} className="btn btn-warning"> */}
-        <button className="btn btn-warning">Add Checked Items to List</button>
-        <table className="table table-sm table-pin-rows">
-          {/* <table> */}
-          <thead>
-            <tr>
-              <th></th>
-              <th>Item</th>
-              <th>Price</th>
-              <th>Price Type</th>
-              <th>Brand</th>
-              <th>Size</th>
-              <th>Location</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {groceryItems
-              .sort((a, b) => {
-                return a.itemName.localeCompare(b.itemName);
-              })
-              .map((item) => {
-                return (
-                  <tr key={item._id}>
-                    <td>
-                      <input type="checkbox" />
-                    </td>
-                    <td>{item.itemName}</td>
-                    <td>${item.price?.toFixed(2)}</td>
-                    <td>{item.priceType}</td>
-                    <td>{item.brand}</td>
-                    <td>{item.size}</td>
-                    <td>{item.location}</td>
-                    <td className="w-px whitespace-nowrap">
-                      <Link
-                        href={`/dashboard/store/edit/${item._id}`}
-                        className="btn btn-sm"
-                      >
-                        Edit
-                      </Link>
-                    </td>
-                    <td className="w-px whitespace-nowrap">
-                      <form action={deleteGroceryItem}>
-                        <input
-                          type="hidden"
-                          name="id"
-                          defaultValue={item._id.toString()}
-                        />
-                        <button className="btn btn-sm bg-red-700 text-white">
-                          Delete
-                        </button>
-                      </form>
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
-      </div>
+      <StoreItems
+        groceryItems={groceryItems}
+        deleteGroceryItem={deleteGroceryItem}
+      />
     </>
   );
 };
