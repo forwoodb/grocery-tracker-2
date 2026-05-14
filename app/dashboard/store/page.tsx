@@ -6,17 +6,7 @@ import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
-interface Item {
-  _id: string;
-  itemName: string;
-  price: number;
-  priceType: string;
-  brand: string;
-  size: number;
-  units: string;
-  location: string;
-}
+import { Item } from "@/app/lib/types";
 
 const StorePage = async () => {
   await connectDb();
@@ -57,7 +47,7 @@ const StorePage = async () => {
 
   return (
     <>
-      <ItemForm submit={createGroceryItem} />
+      <ItemForm submit={createGroceryItem} item={null} />
       <div className="bg-base-100 rounded-xl shadow-md p-6">
         {/* <button click={addToList} className="btn btn-warning"> */}
         <button className="btn btn-warning">Add Checked Items to List</button>

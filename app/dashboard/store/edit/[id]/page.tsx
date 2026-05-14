@@ -1,12 +1,15 @@
 import ItemForm from "@/app/components/ItemForm";
 import connectDb from "@/app/lib/db";
-
+import GroceryItem from "@/app/models/GroceryItem";
+import { Item } from "@/app/lib/types";
 interface PageProps {
   params: Promise<{ id: string }>;
 }
 
 const EditGroceryItemPage = async ({ params }: PageProps) => {
   const { id } = await params;
+
+  const groceryItem = (await GroceryItem.findOne({ _id: id })) as Item;
 
   const updateItem = async (formData: FormData) => {
     "use server";
@@ -18,7 +21,7 @@ const EditGroceryItemPage = async ({ params }: PageProps) => {
   return (
     <>
       <h1>Edit Page</h1>
-      <ItemForm submit={updateItem} />
+      <ItemForm submit={updateItem} item={groceryItem} />
     </>
   );
 };

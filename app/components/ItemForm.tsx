@@ -1,8 +1,11 @@
+import { Item } from "../lib/types";
+
 interface ItemFormProps {
   submit: (formData: FormData) => Promise<void>;
+  item: Item | null;
 }
 
-const ItemForm = ({ submit }: ItemFormProps) => {
+const ItemForm = ({ submit, item }: ItemFormProps) => {
   return (
     <div className="bg-base-100 rounded-xl shadow-md p-6 mb-3">
       <h2 className="text-3xl  font-semibold mb-6 text-center">
@@ -21,8 +24,7 @@ const ItemForm = ({ submit }: ItemFormProps) => {
               type="text"
               name="itemName"
               id="itemName"
-              // defaultValue={item.itemName}
-              // onChange={change}
+              defaultValue={item?.itemName}
               className="input input-warning w-full"
             />
           </div>
@@ -35,18 +37,14 @@ const ItemForm = ({ submit }: ItemFormProps) => {
                 type="text"
                 name="price"
                 id="price"
-                // defaultValue={item.price}
-                className="
-                          input 
-                          input-warning 
-                          w-full
-                        "
+                defaultValue={item?.price}
+                className="input input-warning w-full"
               />
               <select
                 className="select select-warning w-28"
                 name="priceType"
                 id="priceType"
-                // defaultValue={item.priceType}
+                defaultValue={item?.priceType}
               >
                 <option value="">type</option>
                 <option value="regular">regular</option>
@@ -63,7 +61,7 @@ const ItemForm = ({ submit }: ItemFormProps) => {
               type="text"
               name="brand"
               id="brand"
-              // defaultValue={item.brand}
+              defaultValue={item?.brand}
               className="input input-warning w-full"
             />
           </div>
@@ -86,14 +84,14 @@ const ItemForm = ({ submit }: ItemFormProps) => {
                 type="text"
                 name="size"
                 id="size"
-                // defaultValue={item.size}
+                defaultValue={item?.size}
                 className="input input-warning w-full"
               />
               <select
                 className="select select-warning w-28"
                 name="units"
                 id="units"
-                // defaultValue={item.units}
+                defaultValue={item?.units}
               >
                 <option value="units">units</option>
                 <option value="servings">servings</option>
@@ -114,7 +112,7 @@ const ItemForm = ({ submit }: ItemFormProps) => {
               type="text"
               name="location"
               id="location"
-              // defaultValue={item.location}
+              defaultValue={item?.location}
               className="input input-warning w-full"
             />
           </div>
@@ -122,8 +120,7 @@ const ItemForm = ({ submit }: ItemFormProps) => {
         {/* Actions */}
         <div className="flex justify-start pt-4">
           <button className="btn btn-warning px-8">
-            {/* {edit ? "Update" : "Add"} Item */}
-            Add
+            {item ? "Update" : "Add"} Item
           </button>
         </div>
       </form>
