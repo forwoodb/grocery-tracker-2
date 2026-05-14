@@ -4,6 +4,7 @@ import connectDb from "@/app/lib/db";
 import GroceryItem from "@/app/models/GroceryItem";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 interface Item {
@@ -29,8 +30,6 @@ const StorePage = async () => {
   }
 
   const groceryItems: Item[] = await GroceryItem.find({});
-  // const data = await GroceryItem.find({}).lean();
-  // const groceryItems: Item[] = JSON.parse(JSON.stringify(data));
 
   const createGroceryItem = async (formData: FormData) => {
     "use server";
@@ -86,10 +85,7 @@ const StorePage = async () => {
                 return (
                   <tr key={item._id}>
                     <td>
-                      <input
-                        type="checkbox"
-                        // onChange={() => handleCheckbox(item._id)}
-                      />
+                      <input type="checkbox" />
                     </td>
                     <td>{item.itemName}</td>
                     <td>${item.price?.toFixed(2)}</td>
@@ -98,10 +94,12 @@ const StorePage = async () => {
                     <td>{item.size}</td>
                     <td>{item.location}</td>
                     <td className="w-px whitespace-nowrap">
-                      {/* <Button click={() => editItemID(item)}>Edit</Button> */}
-                      <button className="btn btn-sm border border-black">
+                      <Link
+                        href={`/dashboard/store/edit/${item._id}`}
+                        className="btn btn-sm"
+                      >
                         Edit
-                      </button>
+                      </Link>
                     </td>
                     <td className="w-px whitespace-nowrap">
                       <form action={deleteGroceryItem}>
@@ -110,10 +108,7 @@ const StorePage = async () => {
                           name="id"
                           defaultValue={item._id.toString()}
                         />
-                        <button
-                          // click={() => deleteItem(item._id)}
-                          className="btn btn-sm bg-red-700 text-white"
-                        >
+                        <button className="btn btn-sm bg-red-700 text-white">
                           Delete
                         </button>
                       </form>
