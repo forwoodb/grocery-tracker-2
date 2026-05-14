@@ -2,11 +2,18 @@ import { auth } from "@/app/lib/auth";
 import connectDb from "@/app/lib/db";
 import GroceryItem from "@/app/models/GroceryItem";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 const StorePage = async () => {
+  await connectDb();
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
+
+  if (!session) {
+    redirect("/auth/login");
+  }
 
   const createGroceryItem = async (formData: FormData) => {
     "use server";
