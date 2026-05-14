@@ -68,14 +68,7 @@ const ItemForm = ({ submit, item }: ItemFormProps) => {
         </div>
         {/* Row 2 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div
-            className="
-                      input-group 
-                      flex 
-                      flex-col 
-                      gap-1
-                    "
-          >
+          <div className="input-group flex flex-col gap-1">
             <label htmlFor="name" className="font-medium">
               Size
             </label>
