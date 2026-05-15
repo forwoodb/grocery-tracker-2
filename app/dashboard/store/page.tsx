@@ -2,7 +2,7 @@ import ItemForm from "@/app/components/ItemForm";
 import { auth } from "@/app/lib/auth";
 import connectDb from "@/app/lib/db";
 import GroceryItem from "@/app/models/GroceryItem";
-import { revalidatePath } from "next/cache";
+import { refresh, revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Item } from "@/app/lib/types";
@@ -20,13 +20,14 @@ const StorePage = async () => {
     redirect("/auth/login");
   }
 
-  const groceryItems: Item[] = await GroceryItem.find({});
+  const data = await GroceryItem.find({}).lean();
+  const groceryItems: Item[] = JSON.parse(JSON.stringify(data));
 
   const createGroceryItem = async (formData: FormData) => {
     "use server";
     await connectDb();
 
-    const userId = session?.user.id;
+    const userId = session.user.id;
     const data = Object.fromEntries(formData);
     const newItem = await new GroceryItem({ ...data, userId });
 
@@ -44,6 +45,7 @@ const StorePage = async () => {
     await GroceryItem.findByIdAndDelete(id);
 
     revalidatePath("/dashboard/store");
+    // refresh();
   };
 
   return (

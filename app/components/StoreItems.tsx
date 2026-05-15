@@ -1,12 +1,30 @@
+"use client";
+
+import { useState } from "react";
 import { Item } from "../lib/types";
 import Link from "next/link";
 
-interface PageProps {
+interface StoreItemsProps {
   groceryItems: Item[];
   deleteGroceryItem: (formData: FormData) => Promise<void>;
 }
 
-const StoreItems = ({ groceryItems, deleteGroceryItem }: PageProps) => {
+const StoreItems = ({ groceryItems, deleteGroceryItem }: StoreItemsProps) => {
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  // const groceryItems = items;
+  console.log(groceryItems);
+
+  const handleCheckbox = (id: string) => {
+    const list = groceryItems.map((item) => {
+      if (item._id === id) {
+        item.inList = !item.inList;
+      }
+      return item;
+    });
+    // console.log(list);
+  };
+
   return (
     <div className="bg-base-100 rounded-xl shadow-md p-6">
       {/* <button click={addToList} className="btn btn-warning"> */}
@@ -35,7 +53,10 @@ const StoreItems = ({ groceryItems, deleteGroceryItem }: PageProps) => {
               return (
                 <tr key={item._id}>
                   <td>
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      onChange={() => handleCheckbox(item._id)}
+                    />
                   </td>
                   <td>{item.itemName}</td>
                   <td>${item.price?.toFixed(2)}</td>
@@ -53,11 +74,7 @@ const StoreItems = ({ groceryItems, deleteGroceryItem }: PageProps) => {
                   </td>
                   <td className="w-px whitespace-nowrap">
                     <form action={deleteGroceryItem}>
-                      <input
-                        type="hidden"
-                        name="id"
-                        defaultValue={item._id.toString()}
-                      />
+                      <input type="hidden" name="id" defaultValue={item._id} />
                       <button className="btn btn-sm bg-red-700 text-white">
                         Delete
                       </button>

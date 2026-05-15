@@ -7,4 +7,5 @@ export interface Item {
   size: number;
   units: string;
   location: string;
+  inList: boolean;
 }
