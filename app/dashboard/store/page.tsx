@@ -50,14 +50,23 @@ const StorePage = async () => {
 
   const createShoppingList = async (formData: FormData) => {
     "use server";
+    await connectDb();
 
     const selected = formData.getAll("selected");
 
-    selected.forEach((id) => {
-      GroceryItem.findByIdAndUpdate(id, { inList: true });
-    });
+    // await Promise.all(
+    //   selected.map((id) => {
+    //     GroceryItem.findByIdAndUpdate(id, { inList: true });
+    //   }),
+    // );
 
     console.log(selected);
+
+    for (const id of selected) {
+      await GroceryItem.findByIdAndUpdate(id, { inList: true });
+    }
+
+    redirect("/dashboard/shopping-list");
   };
 
   return (
