@@ -48,12 +48,25 @@ const StorePage = async () => {
     // refresh();
   };
 
+  const createShoppingList = async (formData: FormData) => {
+    "use server";
+
+    const selected = formData.getAll("selected");
+
+    selected.forEach((id) => {
+      GroceryItem.findByIdAndUpdate(id, { inList: true });
+    });
+
+    console.log(selected);
+  };
+
   return (
     <>
       <ItemForm submit={createGroceryItem} item={null} />
       <StoreItems
         groceryItems={groceryItems}
         deleteGroceryItem={deleteGroceryItem}
+        createShoppingList={createShoppingList}
       />
     </>
   );

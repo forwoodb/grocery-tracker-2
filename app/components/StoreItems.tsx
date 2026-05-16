@@ -1,34 +1,41 @@
-"use client";
+// "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import { Item } from "../lib/types";
 import Link from "next/link";
 
 interface StoreItemsProps {
   groceryItems: Item[];
   deleteGroceryItem: (formData: FormData) => Promise<void>;
+  createShoppingList: (formData: FormData) => Promise<void>;
 }
 
-const StoreItems = ({ groceryItems, deleteGroceryItem }: StoreItemsProps) => {
-  const [selectedItems, setSelectedItems] = useState([]);
+const StoreItems = ({
+  groceryItems,
+  deleteGroceryItem,
+  createShoppingList,
+}: StoreItemsProps) => {
+  // const [selectedItems, setSelectedItems] = useState([]);
 
   // const groceryItems = items;
-  console.log(groceryItems);
+  // console.log(groceryItems);
 
-  const handleCheckbox = (id: string) => {
-    const list = groceryItems.map((item) => {
-      if (item._id === id) {
-        item.inList = !item.inList;
-      }
-      return item;
-    });
-    // console.log(list);
-  };
+  // const handleCheckbox = (id: string) => {
+  //   const list = groceryItems.map((item) => {
+  //     if (item._id === id) {
+  //       item.inList = !item.inList;
+  //     }
+  //     return item;
+  //   });
+  //   // console.log(list);
+  // };
 
   return (
     <div className="bg-base-100 rounded-xl shadow-md p-6">
       {/* <button click={addToList} className="btn btn-warning"> */}
-      <button className="btn btn-warning">Add Checked Items to List</button>
+      <form action={createShoppingList} id="shopping-list">
+        <button className="btn btn-warning">Add Checked Items to List</button>
+      </form>
       <table className="table table-sm table-pin-rows">
         {/* <table> */}
         <thead>
@@ -55,7 +62,9 @@ const StoreItems = ({ groceryItems, deleteGroceryItem }: StoreItemsProps) => {
                   <td>
                     <input
                       type="checkbox"
-                      onChange={() => handleCheckbox(item._id)}
+                      name="selected"
+                      value={item._id}
+                      form="shopping-list"
                     />
                   </td>
                   <td>{item.itemName}</td>
