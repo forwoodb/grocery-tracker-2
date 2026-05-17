@@ -19,7 +19,7 @@ const MealTable = ({ items }: MealTableProps) => {
   );
 
   // Counter functions
-  const counter = (mode, id) => {
+  const counter = (mode: string, id: string) => {
     const list = mealItems.map((item) => {
       const unitPrice = item.price / item.size;
       if (id === item._id) {
@@ -40,11 +40,11 @@ const MealTable = ({ items }: MealTableProps) => {
     setMealItems(list);
   };
 
-  const add = (id) => {
+  const add = (id: string) => {
     counter("add", id);
   };
 
-  const subtract = (id) => {
+  const subtract = (id: string) => {
     counter("subtract", id);
   };
 

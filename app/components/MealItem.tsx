@@ -1,11 +1,12 @@
 "use client";
-import { useState } from "react";
 import Counter from "./Counter";
 import { Item } from "../lib/types";
 
 interface MealItemProps {
   item: Item;
   count: number;
+  add: () => void;
+  subtract: () => void;
 }
 
 const MealItem = ({ item, count, add, subtract }: MealItemProps) => {
@@ -22,9 +23,9 @@ const MealItem = ({ item, count, add, subtract }: MealItemProps) => {
       </td>
       <td>
         {/* <form action={removeFromKitchen}>
-                      <input type="hidden" name="id" value={item._id} />
-                      <button className="btn btn-xs">Remove</button>
-                    </form> */}
+          <input type="hidden" name="id" value={item._id} />
+          <button className="btn btn-xs">Remove</button>
+        </form> */}
       </td>
     </tr>
   );

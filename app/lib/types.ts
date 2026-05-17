@@ -8,4 +8,5 @@ export interface Item {
   units: string;
   location: string;
   inList: boolean;
+  cost: number;
 }
