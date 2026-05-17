@@ -24,7 +24,7 @@ const StoreItem = ({ item, remove }: StoreItemProps) => {
           subtract={() => setCount(count - 1)}
         />
       </td>
-      <td>${item.price.toFixed(2)}</td>
+      <td>${(item.price * count).toFixed(2)}</td>
       <td>
         <form action={remove}>
           <input type="hidden" name="id" defaultValue={item._id} />
