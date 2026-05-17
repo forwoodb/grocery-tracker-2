@@ -1,5 +1,4 @@
 "use client";
-
 import { Item } from "../lib/types";
 import ShopItem from "@/app/components/ShopItem";
 import { useState } from "react";
@@ -10,12 +9,49 @@ interface ShoppingTableProps {
 }
 
 const ShoppingTable = ({ items, remove }: ShoppingTableProps) => {
-  const [count, setCount] = useState(1);
+  const [shoppingItems, setShoppingItems] = useState(
+    items.map((item) => {
+      return {
+        ...item,
+        count: 1,
+      };
+    }),
+  );
 
+  // Counter functions
+  const counter = (mode: string, id: string) => {
+    const list = shoppingItems.map((item) => {
+      if (id === item._id) {
+        let shoppingCount;
+        if (mode === "add") {
+          shoppingCount = item.count + 1;
+        } else {
+          shoppingCount = Math.max(1, item.count - 1);
+        }
+        const countItem = {
+          ...item,
+          count: shoppingCount,
+        };
+        return countItem;
+      }
+      return item;
+    });
+    setShoppingItems(list);
+  };
+
+  const add = (id: string) => {
+    counter("add", id);
+  };
+
+  const subtract = (id: string) => {
+    counter("subtract", id);
+  };
+
+  // Get list total
   let total = 0;
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
-    total = total + item.price;
+  for (let i = 0; i < shoppingItems.length; i++) {
+    const item = shoppingItems[i];
+    total = total + item.price * item.count;
   }
 
   return (
@@ -33,15 +69,15 @@ const ShoppingTable = ({ items, remove }: ShoppingTableProps) => {
         </tr>
       </thead>
       <tbody>
-        {items.map((item) => {
+        {shoppingItems.map((item) => {
           return (
             <ShopItem
               key={item._id}
               item={item}
               remove={remove}
-              count={count}
-              add={() => setCount(count + 1)}
-              subtract={() => setCount(Math.max(1, count - 1))}
+              count={item.count}
+              add={() => add(item._id)}
+              subtract={() => subtract(item._id)}
             />
           );
         })}
