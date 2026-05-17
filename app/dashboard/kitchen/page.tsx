@@ -1,3 +1,5 @@
+import Counter from "@/app/components/Counter";
+import MealItem from "@/app/components/MealItem";
 import connectDb from "@/app/lib/db";
 import { Item } from "@/app/lib/types";
 import GroceryItem from "@/app/models/GroceryItem";
@@ -57,25 +59,7 @@ const KitchenPage = async () => {
           </thead>
           <tbody>
             {mealItems.map((item) => {
-              return (
-                <tr key={item._id}>
-                  <td>
-                    <input type="checkbox" name="selected" value={item._id} />
-                  </td>
-                  <td>{item.itemName}</td>
-                  <td>{item.price}</td>
-                  <td>{item.brand}</td>
-                  <td>
-                    {item.size} {item.units}
-                  </td>
-                  <td>
-                    <form action={removeFromKitchen}>
-                      <input type="hidden" name="id" value={item._id} />
-                      <button className="btn btn-xs">Remove</button>
-                    </form>
-                  </td>
-                </tr>
-              );
+              return <MealItem key={item._id} item={item} />;
             })}
           </tbody>
         </table>
