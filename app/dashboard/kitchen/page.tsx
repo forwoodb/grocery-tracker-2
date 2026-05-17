@@ -1,4 +1,3 @@
-import Counter from "@/app/components/Counter";
 import MealItem from "@/app/components/MealItem";
 import connectDb from "@/app/lib/db";
 import { Item } from "@/app/lib/types";
@@ -39,6 +38,15 @@ const KitchenPage = async () => {
 
     revalidatePath("/dashboard/kitchen");
   };
+
+  let total = 0;
+  for (let i = 0; i < mealItems.length; i++) {
+    const item = mealItems[i];
+    const unitPrice = item.price / item.size;
+    total = total + unitPrice;
+    console.log(unitPrice);
+  }
+  console.log(total);
 
   return (
     <div>

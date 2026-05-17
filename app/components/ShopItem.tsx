@@ -6,11 +6,12 @@ import { useState } from "react";
 interface StoreItemProps {
   item: Item;
   remove: (formData: FormData) => Promise<void>;
+  count: number;
+  add: () => void;
+  subtract: () => void;
 }
 
-const StoreItem = ({ item, remove }: StoreItemProps) => {
-  const [count, setCount] = useState(1);
-
+const StoreItem = ({ item, remove, count, add, subtract }: StoreItemProps) => {
   return (
     <tr>
       <td>
@@ -22,11 +23,7 @@ const StoreItem = ({ item, remove }: StoreItemProps) => {
         />
       </td>
       <td>
-        <Counter
-          count={count}
-          add={() => setCount(count + 1)}
-          subtract={() => setCount(Math.max(1, count - 1))}
-        />
+        <Counter count={count} add={add} subtract={subtract} />
       </td>
       <td>{item.itemName}</td>
       <td>${(item.price * count).toFixed(2)}</td>

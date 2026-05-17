@@ -1,6 +1,3 @@
-// "use client";
-
-// import { useState } from "react";
 import { Item } from "../lib/types";
 import Link from "next/link";
 

@@ -13,7 +13,7 @@ const MealItem = ({ item }: MealItemProps) => {
 
   const unitPrice = item.price / item.size;
 
-  console.log(unitPrice);
+  // console.log(unitPrice);
 
   return (
     <tr key={item._id}>

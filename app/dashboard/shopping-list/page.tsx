@@ -2,8 +2,8 @@ import connectDb from "@/app/lib/db";
 import GroceryItem from "@/app/models/GroceryItem";
 import { Item } from "@/app/lib/types";
 import { revalidatePath } from "next/cache";
-import ShopItem from "@/app/components/ShopItem";
 import { redirect } from "next/navigation";
+import ShoppingTable from "@/app/components/ShoppingTable";
 
 const ShoppingListPage = async () => {
   await connectDb();
@@ -49,27 +49,7 @@ const ShoppingListPage = async () => {
           Add Checked Items to Kitchen
         </button>
       </form>
-      <table className="table table-xs">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Count</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Price Type</th>
-            <th>Brand</th>
-            <th>Size</th>
-            <th>Location</th>
-          </tr>
-        </thead>
-        <tbody>
-          {shoppingItems.map((item) => {
-            return (
-              <ShopItem key={item._id} item={item} remove={removeFromList} />
-            );
-          })}
-        </tbody>
-      </table>
+      <ShoppingTable items={shoppingItems} remove={removeFromList} />
     </div>
   );
 };
