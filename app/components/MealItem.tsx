@@ -5,31 +5,20 @@ import { Item } from "../lib/types";
 
 interface MealItemProps {
   item: Item;
+  count: number;
 }
 
-const MealItem = ({ item }: MealItemProps) => {
-  const [count, setCount] = useState(0);
-  const [itemPrice, setItemPrice] = useState(0);
-
-  const unitPrice = item.price / item.size;
-
-  // console.log(unitPrice);
-
+const MealItem = ({ item, count, add, subtract }: MealItemProps) => {
   return (
     <tr key={item._id}>
       <td>
         <input type="checkbox" name="selected" value={item._id} />
       </td>
       <td>{item.itemName}</td>
-      <td>${(unitPrice * count).toFixed(2)}</td>
+      <td>${item.cost.toFixed(2)}</td>
       <td>{item.brand}</td>
       <td className="flex">
-        <Counter
-          count={count}
-          add={() => setCount(count + 1)}
-          subtract={() => setCount(Math.max(0, count - 1))}
-        />{" "}
-        {item.units}
+        <Counter count={count} add={add} subtract={subtract} /> {item.units}
       </td>
       <td>
         {/* <form action={removeFromKitchen}>

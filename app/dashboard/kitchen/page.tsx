@@ -1,8 +1,8 @@
-import MealItem from "@/app/components/MealItem";
 import connectDb from "@/app/lib/db";
 import { Item } from "@/app/lib/types";
 import GroceryItem from "@/app/models/GroceryItem";
 import { revalidatePath } from "next/cache";
+import MealTable from "@/app/components/MealTable";
 
 const KitchenPage = async () => {
   await connectDb();
@@ -39,15 +39,6 @@ const KitchenPage = async () => {
     revalidatePath("/dashboard/kitchen");
   };
 
-  let total = 0;
-  for (let i = 0; i < mealItems.length; i++) {
-    const item = mealItems[i];
-    const unitPrice = item.price / item.size;
-    total = total + unitPrice;
-    console.log(unitPrice);
-  }
-  console.log(total);
-
   return (
     <div>
       <div className="bg-base-100 rounded-xl shadow-md p-6">
@@ -55,22 +46,7 @@ const KitchenPage = async () => {
         <form action="">
           <button className="btn btn-xs btn-warning">Eat</button>
         </form>
-        <table className="table table-xs">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Brand</th>
-              <th>Size</th>
-            </tr>
-          </thead>
-          <tbody>
-            {mealItems.map((item) => {
-              return <MealItem key={item._id} item={item} />;
-            })}
-          </tbody>
-        </table>
+        <MealTable items={mealItems} />
       </div>
       <div className="bg-base-100 rounded-xl shadow-md p-6">
         <h2 className="text-3xl  font-semibold mb-6 text-center">Kitchen</h2>
