@@ -2,6 +2,7 @@ import connectDb from "@/app/lib/db";
 import GroceryItem from "@/app/models/GroceryItem";
 import { Item } from "@/app/lib/types";
 import { revalidatePath } from "next/cache";
+import StoreItem from "@/app/components/StoreItem";
 
 const ShoppingListPage = async () => {
   await connectDb();
@@ -23,28 +24,19 @@ const ShoppingListPage = async () => {
   return (
     <div>
       <h1>Shopping List Page</h1>
-      <table className="table">
+      <table className="table table-xs">
         <thead>
           <tr>
             <th></th>
             <th>Name</th>
+            <th>Count</th>
+            <th>Price</th>
           </tr>
         </thead>
         <tbody>
           {shoppingItems.map((item) => {
             return (
-              <tr key={item._id}>
-                <td>
-                  <input type="checkbox" name="" id="" />
-                </td>
-                <td>{item.itemName}</td>
-                <td>
-                  <form action={removeFromList}>
-                    <input type="hidden" name="id" defaultValue={item._id} />
-                    <button className="btn">Remove</button>
-                  </form>
-                </td>
-              </tr>
+              <StoreItem key={item._id} item={item} remove={removeFromList} />
             );
           })}
         </tbody>

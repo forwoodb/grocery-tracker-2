@@ -54,14 +54,6 @@ const StorePage = async () => {
 
     const selected = formData.getAll("selected");
 
-    // await Promise.all(
-    //   selected.map((id) => {
-    //     GroceryItem.findByIdAndUpdate(id, { inList: true });
-    //   }),
-    // );
-
-    console.log(selected);
-
     for (const id of selected) {
       await GroceryItem.findByIdAndUpdate(id, { inList: true });
     }

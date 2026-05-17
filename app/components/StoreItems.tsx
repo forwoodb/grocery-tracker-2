@@ -15,28 +15,13 @@ const StoreItems = ({
   deleteGroceryItem,
   createShoppingList,
 }: StoreItemsProps) => {
-  // const [selectedItems, setSelectedItems] = useState([]);
-
-  // const groceryItems = items;
-  // console.log(groceryItems);
-
-  // const handleCheckbox = (id: string) => {
-  //   const list = groceryItems.map((item) => {
-  //     if (item._id === id) {
-  //       item.inList = !item.inList;
-  //     }
-  //     return item;
-  //   });
-  //   // console.log(list);
-  // };
-
   return (
     <div className="bg-base-100 rounded-xl shadow-md p-6">
       {/* <button click={addToList} className="btn btn-warning"> */}
       <form action={createShoppingList} id="shopping-list">
         <button className="btn btn-warning">Add Checked Items to List</button>
       </form>
-      <table className="table table-sm table-pin-rows">
+      <table className="table table-xs table-pin-rows">
         {/* <table> */}
         <thead>
           <tr>
