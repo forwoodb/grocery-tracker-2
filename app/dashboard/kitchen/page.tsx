@@ -6,8 +6,13 @@ import { revalidatePath } from "next/cache";
 const KitchenPage = async () => {
   await connectDb();
 
+  // Get kitchen items
   const data = await GroceryItem.find({ inKitchen: true }).lean();
   const items: Item[] = JSON.parse(JSON.stringify(data));
+
+  // Get meal items
+  const mealData = await GroceryItem.find({ inMeal: true }).lean();
+  const mealItems: Item[] = JSON.parse(JSON.stringify(mealData));
 
   const removeFromKitchen = async (formData: FormData) => {
     "use server";
@@ -20,12 +25,66 @@ const KitchenPage = async () => {
     revalidatePath("/dashboard/kitchen");
   };
 
+  const addToMeal = async (formData: FormData) => {
+    "use server";
+    await connectDb();
+
+    console.log(formData);
+  };
+
   return (
     <div>
       <div className="bg-base-100 rounded-xl shadow-md p-6">
         <h2 className="text-3xl  font-semibold mb-6 text-center">Kitchen</h2>
-        <form action="" id="meal">
-          <button>Add Checked Items to Meal</button>
+        <form action={addToMeal} id="meal">
+          <button className="btn btn-xs btn-warning">Eat</button>
+        </form>
+        <table className="table table-xs">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Brand</th>
+              <th>Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            {mealItems.map((item) => {
+              return (
+                <tr key={item._id}>
+                  <td>
+                    <input
+                      type="checkbox"
+                      name="selected"
+                      value={item._id}
+                      form="meal"
+                    />
+                  </td>
+                  <td>{item.itemName}</td>
+                  <td>{item.price}</td>
+                  <td>{item.brand}</td>
+                  <td>
+                    {item.size} {item.units}
+                  </td>
+                  <td>
+                    <form action={removeFromKitchen}>
+                      <input type="hidden" name="id" value={item._id} />
+                      <button className="btn btn-xs">Remove</button>
+                    </form>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div className="bg-base-100 rounded-xl shadow-md p-6">
+        <h2 className="text-3xl  font-semibold mb-6 text-center">Kitchen</h2>
+        <form action={addToMeal} id="meal">
+          <button className="btn btn-xs btn-warning">
+            Add Checked Items to Meal
+          </button>
         </form>
         <table className="table table-xs">
           <thead>
