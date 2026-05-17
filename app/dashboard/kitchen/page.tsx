@@ -34,7 +34,12 @@ const KitchenPage = async () => {
                 <td>
                   {item.size} {item.units}
                 </td>
-                <td></td>
+                <td>
+                  <form action="">
+                    <input type="hidden" name="id" value={item._id} />
+                    <button></button>
+                  </form>
+                </td>
               </tr>
             );
           })}
