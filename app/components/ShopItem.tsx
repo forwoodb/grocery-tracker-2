@@ -14,7 +14,7 @@ const StoreItem = ({ item, remove }: StoreItemProps) => {
   return (
     <tr>
       <td>
-        <input type="checkbox" name="" id="" />
+        <input type="checkbox" name="" id="" form="kitchen" />
       </td>
       <td>
         <Counter

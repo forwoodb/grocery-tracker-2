@@ -12,6 +12,7 @@ const ShoppingListPage = async () => {
 
   const removeFromList = async (formData: FormData) => {
     "use server";
+    await connectDb();
 
     const id = formData.get("id");
 
@@ -21,9 +22,19 @@ const ShoppingListPage = async () => {
     revalidatePath("/dashboard/shopping-list");
   };
 
+  const addToKitchen = async (formData: FormData) => {
+    "use server";
+    await connectDb();
+
+    console.log(formData);
+  };
+
   return (
     <div>
       <h1>Shopping List Page</h1>
+      <form action={addToKitchen} id="kitchen">
+        <button className="btn btn-xs">Add Checked Items to Kitchen</button>
+      </form>
       <table className="table table-xs">
         <thead>
           <tr>
