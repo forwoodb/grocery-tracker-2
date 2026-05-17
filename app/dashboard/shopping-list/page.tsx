@@ -3,6 +3,7 @@ import GroceryItem from "@/app/models/GroceryItem";
 import { Item } from "@/app/lib/types";
 import { revalidatePath } from "next/cache";
 import ShopItem from "@/app/components/ShopItem";
+import { redirect } from "next/navigation";
 
 const ShoppingListPage = async () => {
   await connectDb();
@@ -26,7 +27,17 @@ const ShoppingListPage = async () => {
     "use server";
     await connectDb();
 
-    console.log(formData);
+    const selected = formData.getAll("selected");
+
+    for (const id of selected) {
+      await GroceryItem.findByIdAndUpdate(id, {
+        inKitchen: true,
+        inList: false,
+      });
+
+      redirect("/dashboard/kitchen");
+      console.log(id);
+    }
   };
 
   return (
