@@ -2,7 +2,7 @@ import connectDb from "@/app/lib/db";
 import GroceryItem from "@/app/models/GroceryItem";
 import { Item } from "@/app/lib/types";
 import { revalidatePath } from "next/cache";
-import StoreItem from "@/app/components/StoreItem";
+import ShopItem from "@/app/components/ShopItem";
 
 const ShoppingListPage = async () => {
   await connectDb();
@@ -28,15 +28,19 @@ const ShoppingListPage = async () => {
         <thead>
           <tr>
             <th></th>
-            <th>Name</th>
             <th>Count</th>
+            <th>Name</th>
             <th>Price</th>
+            <th>Price Type</th>
+            <th>Brand</th>
+            <th>Size</th>
+            <th>Location</th>
           </tr>
         </thead>
         <tbody>
           {shoppingItems.map((item) => {
             return (
-              <StoreItem key={item._id} item={item} remove={removeFromList} />
+              <ShopItem key={item._id} item={item} remove={removeFromList} />
             );
           })}
         </tbody>

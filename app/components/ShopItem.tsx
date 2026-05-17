@@ -16,15 +16,19 @@ const StoreItem = ({ item, remove }: StoreItemProps) => {
       <td>
         <input type="checkbox" name="" id="" />
       </td>
-      <td>{item.itemName}</td>
       <td>
         <Counter
           count={count}
           add={() => setCount(count + 1)}
-          subtract={() => setCount(count - 1)}
+          subtract={() => setCount(Math.max(1, count - 1))}
         />
       </td>
+      <td>{item.itemName}</td>
       <td>${(item.price * count).toFixed(2)}</td>
+      <td>{item.priceType}</td>
+      <td>{item.brand}</td>
+      <td>{item.size}</td>
+      <td>{item.location}</td>
       <td>
         <form action={remove}>
           <input type="hidden" name="id" defaultValue={item._id} />
