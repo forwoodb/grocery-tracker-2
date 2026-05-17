@@ -1,12 +1,24 @@
 import connectDb from "@/app/lib/db";
+import { Item } from "@/app/lib/types";
 import GroceryItem from "@/app/models/GroceryItem";
+import { revalidatePath } from "next/cache";
 
 const KitchenPage = async () => {
   await connectDb();
 
-  const items = await GroceryItem.find({ inKitchen: true });
+  const data = await GroceryItem.find({ inKitchen: true }).lean();
+  const items: Item[] = JSON.parse(JSON.stringify(data));
 
-  console.log(items);
+  const removeFromKitchen = async (formData: FormData) => {
+    "use server";
+    await connectDb();
+
+    const id = formData.get("id");
+
+    await GroceryItem.findByIdAndUpdate(id, { inKitchen: false });
+
+    revalidatePath("/dashboard/kitchen");
+  };
 
   return (
     <div>
@@ -35,9 +47,9 @@ const KitchenPage = async () => {
                   {item.size} {item.units}
                 </td>
                 <td>
-                  <form action="">
+                  <form action={removeFromKitchen}>
                     <input type="hidden" name="id" value={item._id} />
-                    <button></button>
+                    <button className="btn btn-xs">Remove</button>
                   </form>
                 </td>
               </tr>

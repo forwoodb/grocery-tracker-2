@@ -31,13 +31,12 @@ const ShoppingListPage = async () => {
 
     for (const id of selected) {
       await GroceryItem.findByIdAndUpdate(id, {
-        inKitchen: true,
         inList: false,
+        inKitchen: true,
       });
-
-      redirect("/dashboard/kitchen");
-      console.log(id);
     }
+
+    redirect("/dashboard/kitchen");
   };
 
   return (
