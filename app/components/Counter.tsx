@@ -1,6 +1,12 @@
 "use client";
 
-const Counter = ({ count, add, subtract }) => {
+interface CounterProps {
+  count: number;
+  add: () => void;
+  subtract: () => void;
+}
+
+const Counter = ({ count, add, subtract }: CounterProps) => {
   return (
     <div className="flex items-center">
       <button onClick={subtract} className="btn btn-xs mr-1">
