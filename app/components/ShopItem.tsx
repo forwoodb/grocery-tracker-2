@@ -27,7 +27,7 @@ const StoreItem = ({ item, remove }: StoreItemProps) => {
       <td>${(item.price * count).toFixed(2)}</td>
       <td>{item.priceType}</td>
       <td>{item.brand}</td>
-      <td>{item.size}</td>
+      <td>{`${item.size * count} ${item.units}`}</td>
       <td>{item.location}</td>
       <td>
         <form action={remove}>
