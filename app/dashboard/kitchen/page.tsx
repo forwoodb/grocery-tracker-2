@@ -22,41 +22,43 @@ const KitchenPage = async () => {
 
   return (
     <div>
-      <h1>Kitchen Page</h1>
-      <table className="table table-xs">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Brand</th>
-            <th>Size</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => {
-            return (
-              <tr key={item._id}>
-                <td>
-                  <input type="checkbox" name="selected" value={item._id} />
-                </td>
-                <td>{item.itemName}</td>
-                <td>{item.price}</td>
-                <td>{item.brand}</td>
-                <td>
-                  {item.size} {item.units}
-                </td>
-                <td>
-                  <form action={removeFromKitchen}>
-                    <input type="hidden" name="id" value={item._id} />
-                    <button className="btn btn-xs">Remove</button>
-                  </form>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="bg-base-100 rounded-xl shadow-md p-6">
+        <h2 className="text-3xl  font-semibold mb-6 text-center">Kitchen</h2>
+        <table className="table table-xs">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Brand</th>
+              <th>Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item) => {
+              return (
+                <tr key={item._id}>
+                  <td>
+                    <input type="checkbox" name="selected" value={item._id} />
+                  </td>
+                  <td>{item.itemName}</td>
+                  <td>{item.price}</td>
+                  <td>{item.brand}</td>
+                  <td>
+                    {item.size} {item.units}
+                  </td>
+                  <td>
+                    <form action={removeFromKitchen}>
+                      <input type="hidden" name="id" value={item._id} />
+                      <button className="btn btn-xs">Remove</button>
+                    </form>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -62,14 +62,14 @@ const StorePage = async () => {
   };
 
   return (
-    <>
+    <div>
       <ItemForm submit={createGroceryItem} item={null} />
       <StoreItems
         groceryItems={groceryItems}
         deleteGroceryItem={deleteGroceryItem}
         createShoppingList={createShoppingList}
       />
-    </>
+    </div>
   );
 };
 

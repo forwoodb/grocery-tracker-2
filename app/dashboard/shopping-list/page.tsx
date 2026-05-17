@@ -40,10 +40,14 @@ const ShoppingListPage = async () => {
   };
 
   return (
-    <div>
-      <h1>Shopping List Page</h1>
+    <div className="bg-base-100 rounded-xl shadow-md p-6">
+      <h2 className="text-3xl  font-semibold mb-6 text-center">
+        Shopping List
+      </h2>
       <form action={addToKitchen} id="kitchen">
-        <button className="btn btn-xs">Add Checked Items to Kitchen</button>
+        <button className="btn btn-xs btn-warning">
+          Add Checked Items to Kitchen
+        </button>
       </form>
       <table className="table table-xs">
         <thead>

@@ -17,7 +17,6 @@ const StoreItems = ({
 }: StoreItemsProps) => {
   return (
     <div className="bg-base-100 rounded-xl shadow-md p-6">
-      {/* <button click={addToList} className="btn btn-warning"> */}
       <form action={createShoppingList} id="shopping-list">
         <button className="btn btn-warning">Add Checked Items to List</button>
       </form>
