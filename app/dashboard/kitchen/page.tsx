@@ -29,14 +29,20 @@ const KitchenPage = async () => {
     "use server";
     await connectDb();
 
-    console.log(formData);
+    const selected = formData.getAll("selected");
+
+    for (const id of selected) {
+      await GroceryItem.findByIdAndUpdate(id, { inMeal: true });
+    }
+
+    revalidatePath("/dashboard/kitchen");
   };
 
   return (
     <div>
       <div className="bg-base-100 rounded-xl shadow-md p-6">
-        <h2 className="text-3xl  font-semibold mb-6 text-center">Kitchen</h2>
-        <form action={addToMeal} id="meal">
+        <h2 className="text-3xl  font-semibold mb-6 text-center">Meal</h2>
+        <form action="">
           <button className="btn btn-xs btn-warning">Eat</button>
         </form>
         <table className="table table-xs">
@@ -54,12 +60,7 @@ const KitchenPage = async () => {
               return (
                 <tr key={item._id}>
                   <td>
-                    <input
-                      type="checkbox"
-                      name="selected"
-                      value={item._id}
-                      form="meal"
-                    />
+                    <input type="checkbox" name="selected" value={item._id} />
                   </td>
                   <td>{item.itemName}</td>
                   <td>{item.price}</td>
