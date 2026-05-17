@@ -21,14 +21,15 @@ const MealItem = ({ item }: MealItemProps) => {
         <input type="checkbox" name="selected" value={item._id} />
       </td>
       <td>{item.itemName}</td>
-      <td>{itemPrice}</td>
+      <td>${(unitPrice * count).toFixed(2)}</td>
       <td>{item.brand}</td>
-      <td>
+      <td className="flex">
         <Counter
           count={count}
           add={() => setCount(count + 1)}
           subtract={() => setCount(Math.max(0, count - 1))}
-        />
+        />{" "}
+        {item.units}
       </td>
       <td>
         {/* <form action={removeFromKitchen}>
