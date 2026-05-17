@@ -24,6 +24,9 @@ const KitchenPage = async () => {
     <div>
       <div className="bg-base-100 rounded-xl shadow-md p-6">
         <h2 className="text-3xl  font-semibold mb-6 text-center">Kitchen</h2>
+        <form action="" id="meal">
+          <button>Add Checked Items to Meal</button>
+        </form>
         <table className="table table-xs">
           <thead>
             <tr>
@@ -39,7 +42,12 @@ const KitchenPage = async () => {
               return (
                 <tr key={item._id}>
                   <td>
-                    <input type="checkbox" name="selected" value={item._id} />
+                    <input
+                      type="checkbox"
+                      name="selected"
+                      value={item._id}
+                      form="meal"
+                    />
                   </td>
                   <td>{item.itemName}</td>
                   <td>{item.price}</td>
