@@ -9,50 +9,21 @@ interface ShoppingTableProps {
 }
 
 const ShoppingTable = ({ items, remove }: ShoppingTableProps) => {
-  const [shoppingItems, setShoppingItems] = useState(
-    items.map((item) => {
-      return {
-        ...item,
-        count: 1,
-      };
-    }),
-  );
+  const [counts, setCounts] = useState<Record<string, number>>({});
 
-  // Counter functions
-  const counter = (mode: string, id: string) => {
-    const list = shoppingItems.map((item) => {
-      if (id === item._id) {
-        let shoppingCount;
-        if (mode === "add") {
-          shoppingCount = item.count + 1;
-        } else {
-          shoppingCount = Math.max(1, item.count - 1);
-        }
-        const countItem = {
-          ...item,
-          count: shoppingCount,
-        };
-        return countItem;
-      }
-      return item;
-    });
-    setShoppingItems(list);
+  const counter = (id: string, num: number) => {
+    setCounts((prev) => ({
+      ...prev,
+      [id]: (prev[id] || 1) + num,
+    }));
   };
 
-  const add = (id: string) => {
-    counter("add", id);
-  };
-
-  const subtract = (id: string) => {
-    counter("subtract", id);
-  };
-
-  // Get list total
-  let total = 0;
-  for (let i = 0; i < shoppingItems.length; i++) {
-    const item = shoppingItems[i];
-    total = total + item.price * item.count;
-  }
+  // // Get list total
+  // let total = 0;
+  // for (let i = 0; i < items.length; i++) {
+  //   const item = items[i];
+  //   total = total + item.price * item.count;
+  // }
 
   return (
     <table className="table table-xs">
@@ -69,15 +40,15 @@ const ShoppingTable = ({ items, remove }: ShoppingTableProps) => {
         </tr>
       </thead>
       <tbody>
-        {shoppingItems.map((item) => {
+        {items.map((item) => {
           return (
             <ShopItem
               key={item._id}
               item={item}
               remove={remove}
-              count={item.count}
-              add={() => add(item._id)}
-              subtract={() => subtract(item._id)}
+              count={counts[item._id] || 1}
+              add={() => counter(item._id, 1)}
+              subtract={() => counter(item._id, -1)}
             />
           );
         })}
@@ -87,7 +58,7 @@ const ShoppingTable = ({ items, remove }: ShoppingTableProps) => {
           <td></td>
           <td></td>
           <td>Total</td>
-          <td>${total.toFixed(2)}</td>
+          {/* <td>${total.toFixed(2)}</td> */}
         </tr>
       </tfoot>
     </table>
