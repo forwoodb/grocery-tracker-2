@@ -4,57 +4,26 @@ import { Item } from "../lib/types";
 import { useState } from "react";
 
 interface MealTableProps {
-  items: Item[];
+  mealItems: Item[];
+  remove: (formData: FormData) => Promise<void>;
 }
 
-const MealTable = ({ items }: MealTableProps) => {
-  const [mealItems, setMealItems] = useState(
-    items.map((item) => {
-      return {
-        ...item,
-        count: 0,
-        cost: 0,
-      };
-    }),
-  );
+const MealTable = ({ mealItems, remove }: MealTableProps) => {
+  const [counts, setCounts] = useState<Record<string, number>>({});
 
-  // Counter functions
-  const counter = (mode: string, id: string) => {
-    const list = mealItems.map((item) => {
-      const unitPrice = item.price / item.size;
-      if (id === item._id) {
-        let itemCount;
-        if (mode === "add") {
-          itemCount = item.count + 1;
-        } else {
-          itemCount = Math.max(0, item.count - 1);
-        }
-        return {
-          ...item,
-          count: itemCount,
-          cost: unitPrice * itemCount,
-        };
-      }
-      return item;
-    });
-    setMealItems(list);
+  const counter = (id: string, num: number) => {
+    setCounts((prev) => ({
+      ...prev,
+      [id]: Math.max(0, (prev[id] || 0) + num),
+    }));
   };
 
-  const add = (id: string) => {
-    counter("add", id);
-  };
+  const total = mealItems.reduce((sum, item) => {
+    const count = counts[item._id] || 0;
+    const cost = (item.price / item.size) * count;
 
-  const subtract = (id: string) => {
-    counter("subtract", id);
-  };
-
-  // Get total cost of meal
-  let total = 0;
-  for (let i = 0; i < mealItems.length; i++) {
-    const item = mealItems[i];
-
-    total = total + item.cost;
-  }
+    return sum + cost;
+  }, 0);
 
   return (
     <table className="table table-xs">
@@ -69,13 +38,19 @@ const MealTable = ({ items }: MealTableProps) => {
       </thead>
       <tbody>
         {mealItems.map((item) => {
+          const count = counts[item._id] || 0;
+          const unitPrice = item.price / item.size;
+          const cost = unitPrice * count;
+
           return (
             <MealItem
               key={item._id}
               item={item}
-              count={item.count}
-              add={() => add(item._id)}
-              subtract={() => subtract(item._id)}
+              remove={remove}
+              count={count}
+              cost={cost}
+              add={() => counter(item._id, 1)}
+              subtract={() => counter(item._id, -1)}
             />
           );
         })}

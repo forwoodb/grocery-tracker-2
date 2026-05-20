@@ -1,7 +1,7 @@
 import connectDb from "@/app/lib/db";
 import { Item } from "@/app/lib/types";
 import GroceryItem from "@/app/models/GroceryItem";
-import { revalidatePath } from "next/cache";
+import { refresh, revalidatePath } from "next/cache";
 import MealTable from "@/app/components/MealTable";
 
 const KitchenPage = async () => {
@@ -39,6 +39,18 @@ const KitchenPage = async () => {
     revalidatePath("/dashboard/kitchen");
   };
 
+  const removeFromMeal = async (formData: FormData) => {
+    "use server";
+    await connectDb();
+
+    const id = formData.get("id");
+
+    await GroceryItem.findByIdAndUpdate(id, { inMeal: false });
+
+    revalidatePath("/dashboard/kitchen");
+    // refresh();
+  };
+
   return (
     <div>
       <div className="bg-base-100 rounded-xl shadow-md p-6">
@@ -46,7 +58,7 @@ const KitchenPage = async () => {
         <form action="">
           <button className="btn btn-xs btn-warning">Eat</button>
         </form>
-        <MealTable items={mealItems} />
+        <MealTable mealItems={mealItems} remove={removeFromMeal} />
       </div>
       <div className="bg-base-100 rounded-xl shadow-md p-6">
         <h2 className="text-3xl  font-semibold mb-6 text-center">Kitchen</h2>
