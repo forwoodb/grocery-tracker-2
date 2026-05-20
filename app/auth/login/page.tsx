@@ -4,8 +4,8 @@ import { redirect } from "next/navigation";
 
 const LoginPage = () => {
   const signInAction = async (
-    // prevState: string | void | null,
-    prevState: unknown,
+    prevState: void | { message: string } | null,
+    // prevState: unknown,
     formData: FormData,
   ) => {
     "use server";
@@ -21,13 +21,13 @@ const LoginPage = () => {
           password,
         },
       });
-
-      redirect("/dashboard/store");
     } catch (error) {
       const err = error as Error;
       // throw new Error(err.message);
       return { message: err.message };
     }
+
+    redirect("/dashboard/store");
   };
   return (
     <div>

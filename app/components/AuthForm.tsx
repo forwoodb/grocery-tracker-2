@@ -6,9 +6,10 @@ import { useActionState } from "react";
 interface AuthFormProps {
   mode: string;
   userAction: (
-    prevState: unknown,
+    // prevState: unknown,
+    prevState: void | { message: string } | null,
     formData: FormData,
-  ) => Promise<void | { message: string }>;
+  ) => Promise<void | { message: string } | null>;
 }
 
 const AuthForm = ({ mode, userAction }: AuthFormProps) => {
