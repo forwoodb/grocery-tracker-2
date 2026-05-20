@@ -19,11 +19,11 @@ const ShoppingTable = ({ items, remove }: ShoppingTableProps) => {
   };
 
   // // Get list total
-  // let total = 0;
-  // for (let i = 0; i < items.length; i++) {
-  //   const item = items[i];
-  //   total = total + item.price * item.count;
-  // }
+  const total = items.reduce((sum, item) => {
+    const count = counts[item._id] || 1;
+    const cost = item.price * count;
+    return sum + cost;
+  }, 0);
 
   return (
     <table className="table table-xs">
@@ -58,7 +58,7 @@ const ShoppingTable = ({ items, remove }: ShoppingTableProps) => {
           <td></td>
           <td></td>
           <td>Total</td>
-          {/* <td>${total.toFixed(2)}</td> */}
+          <td>${total.toFixed(2)}</td>
         </tr>
       </tfoot>
     </table>

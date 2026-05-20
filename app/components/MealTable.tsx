@@ -14,7 +14,7 @@ const MealTable = ({ mealItems, remove }: MealTableProps) => {
   const counter = (id: string, num: number) => {
     setCounts((prev) => ({
       ...prev,
-      [id]: Math.max(0, (prev[id] || 0) + num),
+      [id]: Math.max(0, prev[id] + num),
     }));
   };
 
