@@ -12,10 +12,18 @@ const MealTable = ({ mealItems, remove }: MealTableProps) => {
   const [counts, setCounts] = useState<Record<string, number>>({});
 
   const counter = (id: string, num: number) => {
-    setCounts((prev) => ({
-      ...prev,
-      [id]: Math.max(0, prev[id] + num),
-    }));
+    const newCounts = {
+      ...counts,
+      [id]: Math.max(0, (counts[id] || 0) + num),
+    };
+
+    // setCounts((prev) => ({
+    //   ...prev,
+    //   [id]: Math.max(0, (prev[id] || 0) + num),
+    // }));
+
+    // console.log(newCounts);
+    setCounts(newCounts);
   };
 
   const total = mealItems.reduce((sum, item) => {

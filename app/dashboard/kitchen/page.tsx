@@ -1,7 +1,7 @@
 import connectDb from "@/app/lib/db";
 import { Item } from "@/app/lib/types";
 import GroceryItem from "@/app/models/GroceryItem";
-import { refresh, revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache";
 import MealTable from "@/app/components/MealTable";
 
 const KitchenPage = async () => {
@@ -48,7 +48,6 @@ const KitchenPage = async () => {
     await GroceryItem.findByIdAndUpdate(id, { inMeal: false });
 
     revalidatePath("/dashboard/kitchen");
-    // refresh();
   };
 
   return (
