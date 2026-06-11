@@ -46,7 +46,9 @@ const ItemForm = ({ submit, item }: ItemFormProps) => {
                 id="priceType"
                 defaultValue={item?.priceType}
               >
-                <option value="">type</option>
+                <option value="" disabled selected hidden>
+                  Price Type
+                </option>
                 <option value="regular">regular</option>
                 <option value="sale">sale</option>
                 <option value="coupon">coupon</option>
