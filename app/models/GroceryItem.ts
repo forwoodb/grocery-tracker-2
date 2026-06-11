@@ -6,7 +6,10 @@ const groceryItemSchema = new mongoose.Schema({
     required: true,
   },
   price: Number,
-  priceType: String,
+  priceType: {
+    type: String,
+    default: "regular",
+  },
   brand: String,
   size: Number,
   units: String,
