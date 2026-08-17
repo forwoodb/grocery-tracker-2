@@ -4,9 +4,20 @@ import { Item } from "@/app/lib/types";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import ShoppingTable from "@/app/components/ShoppingTable";
+import { auth } from "@/app/lib/auth";
+import { headers } from "next/headers";
 
 const ShoppingListPage = async () => {
   await connectDb();
+
+  // Get session info
+  const session = auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/auth/login");
+  }
 
   const data = await GroceryItem.find({ inList: true }).lean();
   const shoppingItems: Item[] = JSON.parse(JSON.stringify(data));

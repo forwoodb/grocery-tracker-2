@@ -2,7 +2,7 @@ import ItemForm from "@/app/components/ItemForm";
 import { auth } from "@/app/lib/auth";
 import connectDb from "@/app/lib/db";
 import GroceryItem from "@/app/models/GroceryItem";
-import { refresh, revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { Item } from "@/app/lib/types";
