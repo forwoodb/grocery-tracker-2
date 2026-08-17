@@ -15,7 +15,6 @@ interface AuthFormProps {
 
 const AuthForm = ({ mode, userAction }: AuthFormProps) => {
   const [state, formAction] = useActionState(userAction, null);
-  console.log(state);
 
   return (
     <>
@@ -91,7 +90,7 @@ const AuthForm = ({ mode, userAction }: AuthFormProps) => {
                   ></path>
                 </g>
               </svg>
-              Login with Google
+              {mode === "login" ? "Login" : "Register"} with Google
             </button>
           </form>
         </div>
