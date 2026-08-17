@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
+import { loginGoogleAction } from "../lib/actions";
 
 interface AuthFormProps {
   mode: string;
@@ -61,7 +62,7 @@ const AuthForm = ({ mode, userAction }: AuthFormProps) => {
         </form>
         <p>or</p>
         <div className="oauth-wrapper p-4">
-          <form action="">
+          <form action={loginGoogleAction}>
             <button className="btn bg-white text-black border-[#e5e5e5]">
               <svg
                 aria-label="Google logo"
