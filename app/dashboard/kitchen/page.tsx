@@ -3,9 +3,20 @@ import { Item } from "@/app/lib/types";
 import GroceryItem from "@/app/models/GroceryItem";
 import { revalidatePath } from "next/cache";
 import MealTable from "@/app/components/MealTable";
+import { auth } from "@/app/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 const KitchenPage = async () => {
   await connectDb();
+
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/auth/login");
+  }
 
   // Get kitchen items
   const data = await GroceryItem.find({ inKitchen: true }).lean();

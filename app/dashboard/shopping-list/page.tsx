@@ -11,7 +11,7 @@ const ShoppingListPage = async () => {
   await connectDb();
 
   // Get session info
-  const session = auth.api.getSession({
+  const session = await auth.api.getSession({
     headers: await headers(),
   });
 
