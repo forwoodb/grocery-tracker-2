@@ -97,9 +97,19 @@ const AuthForm = ({ mode, userAction }: AuthFormProps) => {
         <p>
           {mode === "login" ? "Don't" : "Already"} have an account?{" "}
           {mode === "login" ? (
-            <Link href={"/auth/register"}>Register</Link>
+            <Link
+              href={"/auth/register"}
+              className="h-4 border-b border-blue-800 text-blue-800"
+            >
+              Register
+            </Link>
           ) : (
-            <Link href={"/auth/login"}>Log In</Link>
+            <Link
+              href={"/auth/login"}
+              className="h-4 border-b border-blue-800 text-blue-800"
+            >
+              Log In
+            </Link>
           )}
         </p>
       </div>
