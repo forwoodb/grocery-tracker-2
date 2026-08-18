@@ -52,7 +52,7 @@ const StoreItems = ({
                   <td>${item.price?.toFixed(2)}</td>
                   <td>{item.priceType}</td>
                   <td>{item.brand}</td>
-                  <td>{item.size}</td>
+                  <td>{`${item.size} ${item.units}`}</td>
                   <td>{item.location}</td>
                   <td className="w-px whitespace-nowrap">
                     <Link
