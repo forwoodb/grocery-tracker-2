@@ -53,9 +53,11 @@ const Navbar = async () => {
               <li>
                 <Link href={`/dashboard/kitchen`}>Kitchen</Link>
               </li>
-              <li>
-                <Link href={`/admin`}>Admin</Link>
-              </li>
+              {session?.user.role === "admin" && (
+                <li>
+                  <Link href={`/admin`}>Admin</Link>
+                </li>
+              )}
             </ul>
           </div>
           <a className="btn btn-ghost text-xl">Grocery Tracker</a>
@@ -74,9 +76,11 @@ const Navbar = async () => {
             <li>
               <Link href={`/dashboard/kitchen`}>Kitchen</Link>
             </li>
-            <li>
-              <Link href={`/admin`}>Admin</Link>
-            </li>
+            {session?.user.role === "admin" && (
+              <li>
+                <Link href={`/admin`}>Admin</Link>
+              </li>
+            )}
           </ul>
         </div>
         <div className="navbar-end">
