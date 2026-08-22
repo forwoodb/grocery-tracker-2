@@ -15,8 +15,6 @@ const Navbar = async () => {
     });
   };
 
-  // console.log(session);
-
   return (
     <>
       <div className="navbar bg-base-100 shadow-sm">
@@ -55,6 +53,9 @@ const Navbar = async () => {
               <li>
                 <Link href={`/dashboard/kitchen`}>Kitchen</Link>
               </li>
+              <li>
+                <Link href={`/admin`}>Admin</Link>
+              </li>
             </ul>
           </div>
           <a className="btn btn-ghost text-xl">Grocery Tracker</a>
@@ -72,6 +73,9 @@ const Navbar = async () => {
             </li>
             <li>
               <Link href={`/dashboard/kitchen`}>Kitchen</Link>
+            </li>
+            <li>
+              <Link href={`/admin`}>Admin</Link>
             </li>
           </ul>
         </div>

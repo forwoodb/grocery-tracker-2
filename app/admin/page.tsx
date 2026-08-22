@@ -22,10 +22,8 @@ const AdminPage = async () => {
   });
 
   if (session?.user.role !== "admin") {
-    redirect("/dashboard");
+    redirect("/");
   }
-
-  // console.log(session);
 
   // Get users
   const data = await User.find({});
