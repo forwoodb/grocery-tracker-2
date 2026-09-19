@@ -2,6 +2,7 @@
 import { Item } from "../lib/types";
 import ShopItem from "@/app/components/ShopItem";
 import { useState } from "react";
+import Counter from "./Counter";
 
 interface ShoppingTableProps {
   items: Item[];
