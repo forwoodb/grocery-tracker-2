@@ -62,7 +62,7 @@ const ShoppingTable = ({ items, remove }: ShoppingTableProps) => {
               <td>
                 <form action={remove}>
                   <input type="hidden" name="id" defaultValue={item._id} />
-                  <button className="btn">Remove</button>
+                  <button className="btn btn-sm">Remove</button>
                 </form>
               </td>
             </tr>
