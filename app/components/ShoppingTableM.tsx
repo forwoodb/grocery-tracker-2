@@ -34,10 +34,7 @@ const ShoppingTable = ({ items, remove }: ShoppingTableProps) => {
           <th>Count</th>
           <th>Name</th>
           <th>Price</th>
-          <th>Price Type</th>
           <th>Brand</th>
-          <th>Size</th>
-          <th>Location</th>
         </tr>
       </thead>
       <tbody>
@@ -61,10 +58,7 @@ const ShoppingTable = ({ items, remove }: ShoppingTableProps) => {
               </td>
               <td>{item.itemName}</td>
               <td>${(item.price * counts[item._id]).toFixed(2)}</td>
-              <td>{item.priceType}</td>
               <td>{item.brand}</td>
-              <td>{`${item.size * counts[item._id]} ${item.units}`}</td>
-              <td>{item.location}</td>
               <td>
                 <form action={remove}>
                   <input type="hidden" name="id" defaultValue={item._id} />

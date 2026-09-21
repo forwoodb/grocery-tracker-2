@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import ShoppingTable from "@/app/components/ShoppingTable";
 import { auth } from "@/app/lib/auth";
 import { headers } from "next/headers";
+import ShoppingTableM from "@/app/components/ShoppingTableM";
 
 const ShoppingListPage = async () => {
   await connectDb();
@@ -60,6 +61,9 @@ const ShoppingListPage = async () => {
           Add Checked Items to Kitchen
         </button>
       </form>
+      <div className="md:hidden">
+        <ShoppingTableM items={shoppingItems} remove={removeFromList} />
+      </div>
       <ShoppingTable items={shoppingItems} remove={removeFromList} />
     </div>
   );
