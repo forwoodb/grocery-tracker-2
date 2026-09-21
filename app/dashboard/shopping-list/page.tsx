@@ -64,7 +64,9 @@ const ShoppingListPage = async () => {
       <div className="md:hidden">
         <ShoppingTableM items={shoppingItems} remove={removeFromList} />
       </div>
-      <ShoppingTable items={shoppingItems} remove={removeFromList} />
+      <div className="hidden md:block">
+        <ShoppingTable items={shoppingItems} remove={removeFromList} />
+      </div>
     </div>
   );
 };
