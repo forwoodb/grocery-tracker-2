@@ -51,13 +51,13 @@ const ShoppingTable = ({ items, remove }: ShoppingTableProps) => {
               </td>
               <td>
                 <Counter
-                  count={counts[item._id]}
+                  count={counts[item._id] || 1}
                   add={() => counter(item._id, 1)}
                   subtract={() => counter(item._id, -1)}
                 />
               </td>
               <td>{item.itemName}</td>
-              <td>${(item.price * counts[item._id]).toFixed(2)}</td>
+              <td>${(item.price * (counts[item._id] || 1)).toFixed(2)}</td>
               <td>{item.brand}</td>
               <td>
                 <form action={remove}>
